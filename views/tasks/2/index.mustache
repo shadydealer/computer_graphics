@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="module" src="rasterise_circles.js"></script>
+</head>
+<body>
+  <div>
+  Pixel Size:</div>
+  <div>
+    <input type="number" id="pixelSize" name="pixelSize" min="1" value="1">
+  </div>
+  <div id="circle-fields-container">
+  </div>
+  <div>
+    <button type="button" id="addCircle" name="addCircle">Add Circle</button>
+  </div>
+  <div>
+    <button type="button" id="michenerRasterisation">Rasterise With Michener</button>
+    <button type="button" id="secondOrderDiff">Rasterise With Second Order Diff</button>
+  </div>
+  <div id="canvas-container">
+  </div>
+</body>
+</html>
