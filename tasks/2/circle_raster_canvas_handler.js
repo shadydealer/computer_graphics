@@ -32,22 +32,11 @@ class CircleRasterCanvasHandler extends CanvasHandler {
         event.preventDefault();
 
         const inputData = this.getInputData();
-
-        const canvasDimensions = inputData.circlesData.reduce(
-          (currMax, data) => {
-            return [
-            Math.max(currMax[0], (data.x + data.r + 1)*inputData.pixelSize),
-            Math.max(currMax[1], (data.y + data.r + 1)*inputData.pixelSize)
-            ];
-          },
-          [2048,2048]
-          );
-
-        this.initCanvas(canvasDimensions[0], canvasDimensions[1]);
+        this.initCanvas(inputData);
 
         this._circleRaster = new CircleRaster(
-          Math.round(canvasDimensions[0]/inputData.pixelSize),
-          Math.round(canvasDimensions[1]/inputData.pixelSize)
+          Math.round(this.getCanvasWidth()/inputData.pixelSize),
+          Math.round(this.getCanvasHeight()/inputData.pixelSize)
           );
 
         inputData.circlesData.forEach(circle => {
@@ -59,9 +48,9 @@ class CircleRasterCanvasHandler extends CanvasHandler {
             );
         });
 
-        const canvas2d = document.getElementById("canvas").getContext("2d");
+        const canvas2D = this.getCanvas2D();
         this._circleRaster.fillCanvas2d(
-          canvas2d,
+          canvas2D,
           inputData.pixelSize,
           {
             0: "black",
@@ -78,6 +67,7 @@ class CircleRasterCanvasHandler extends CanvasHandler {
       event => {
         event.preventDefault();
         this.generateCircleInputFields();
+        ++this._circlesCount;
       });
   }
 
@@ -115,8 +105,6 @@ class CircleRasterCanvasHandler extends CanvasHandler {
     divs.forEach((div) => {
       this._circleFieldsContainer.append(div);
     });
-
-    ++this._circlesCount;
   }
 
   getInputData() {
@@ -139,6 +127,20 @@ class CircleRasterCanvasHandler extends CanvasHandler {
     }
 
     return inputData;
+  }
+
+  initCanvas(inputData) {
+    const canvasDimensions = inputData.circlesData.reduce(
+      (currMax, data) => {
+        return [
+        Math.max(currMax[0], (data.x + data.r + 1)*inputData.pixelSize),
+        Math.max(currMax[1], (data.y + data.r + 1)*inputData.pixelSize)
+        ];
+      },
+      [2048,2048]
+      );
+
+    this.createCanvas(canvasDimensions[0], canvasDimensions[1]);
   }
 }
 
