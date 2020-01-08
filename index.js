@@ -4,8 +4,7 @@ import mustacheExpress from "mustache-express";
 import * as http from "http";
 import * as ejs from "ejs";
 import bodyParser from "body-parser";
-import { task1Router } from "./routes/task1.js";
-import { task2Router } from "./routes/task2.js";
+import { tasksRouter } from "./routes/tasks.js";
 
 const app = express();
 
@@ -23,12 +22,7 @@ app.get("/", (req, res) => {
   res.redirect("/tasks");
 });
 
-app.get("/tasks", (req, res) => {
-  res.render("index");
-});
-
-app.use("/tasks/1", task1Router);
-app.use("/tasks/2", task2Router);
+app.use("/tasks/", tasksRouter);
 
 const server = http.Server(app);
 
