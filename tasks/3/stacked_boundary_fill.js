@@ -1,4 +1,4 @@
-import { CircleRasterCanvasHandler } from "./circle_raster_canvas_handler.js";
+import { CircleRasterCanvasHandler } from "../2/circle_raster_canvas_handler.js";
 
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
@@ -20,6 +20,8 @@ document.onreadystatechange = () => {
     circleRasterCanvasHandler.attachSecondOrderDiffRasterisationTrigger(
       "secondOrderDiff"
       );
+
+    const circleRaster = circleRasterCanvasHandler.getCircleRaster();
   }
 };
 
