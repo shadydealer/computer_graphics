@@ -6,11 +6,6 @@ class CircleRasterCanvasHandler extends CanvasHandler {
     super(canvasContaierId);
 
     this._circleFieldsContainer = document.getElementById(circleFieldsDivId);
-    this._circleFields = [
-    "x",
-    "y",
-    "r",
-    ];
     this._circlesCount = 0;
     this._circleRaster;
   }
@@ -74,7 +69,7 @@ class CircleRasterCanvasHandler extends CanvasHandler {
   generateCircleInputFields() {
     const style = "float:left;";
 
-    const divs = this._circleFields.map(name => {
+    const divs = CircleRasterCanvasHandler.CIRCLE_FIELDS.map(name => {
 
       let inputField = document.createElement("input");
       let newId = name + `${`${this._circlesCount}`}`;
@@ -86,7 +81,7 @@ class CircleRasterCanvasHandler extends CanvasHandler {
 
       let wrapperDiv = document.createElement("div");
 
-      if(name != this._circleFields[this._circleFields.length -1]) {
+      if(name != CircleRasterCanvasHandler.CIRCLE_FIELDS[CircleRasterCanvasHandler.CIRCLE_FIELDS.length -1]) {
         wrapperDiv.style = style;
       }
 
@@ -117,7 +112,7 @@ class CircleRasterCanvasHandler extends CanvasHandler {
     for(let circleNum = 0; circleNum < this._circlesCount; ++circleNum) {
       currentCircleData = {};
 
-      this._circleFields.forEach(field => {
+      CircleRasterCanvasHandler.CIRCLE_FIELDS.forEach(field => {
         currentCircleData[field] = Number(
           document.getElementById(field + `${circleNum}`).value
           );
@@ -142,6 +137,16 @@ class CircleRasterCanvasHandler extends CanvasHandler {
 
     this.createCanvas(canvasDimensions[0], canvasDimensions[1]);
   }
+
+  getCircleRaster() {
+    return this._circleRaster;
+  }
 }
+
+CircleRasterCanvasHandler.CIRCLE_FIELDS = [
+"x",
+"y",
+"r",
+];
 
 export { CircleRasterCanvasHandler };
