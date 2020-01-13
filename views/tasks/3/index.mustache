@@ -4,19 +4,39 @@
   <script type="module" src="stacked_boundary_fill.js"></script>
 </head>
 <body>
-  <div>
-  Pixel Size:</div>
-  <div>
-    <input type="number" id="pixelSize" name="pixelSize" min="1" value="1">
+  <div id="input-fields-container">
+    <div style="float:left;">
+      <div>
+        Pixel Size:
+      </div>
+      <div>
+        <input type="number" id="pixel-size" name="pixel-size" min="1" value="1">
+      </div>
+    </div>
+    <div style="float:left;">
+      <div>
+        Pixel Map Width:
+      </div>
+      <div style="float:left;">
+        <input type="number" id="pixel-map-width" name="pixel-map-width" min="1" value="512">
+      </div>
+    </div>
+    <div>
+      <div>
+        Pixel Map Height:
+      </div>
+      <div>
+        <input type="number" id="pixel-map-height" name="pixel-map-height" min="1" value="512">
+      </div>
+    </div>
   </div>
-  <div id="circle-fields-container">
+  <div>
+    <button type="button" id="add-circle" name="add-circle">Add Circle</button>
   </div>
   <div>
-    <button type="button" id="addCircle" name="addCircle">Add Circle</button>
-  </div>
-  <div>
-    <button type="button" id="michenerRasterisation">Rasterise With Michener</button>
-    <button type="button" id="secondOrderDiff">Rasterise With Second Order Diff</button>
+    <button type="button" id="michener-rasterisation">Rasterise With Michener
+    </button>
+    <button type="button" id="second-order-rasterisation">Rasterise With Second Order Diff
   </div>
   <div id="canvas-container">
   </div>

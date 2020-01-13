@@ -1,38 +1,62 @@
-class boundaryFiller {
-  StackedBoundaryFill_4(raster, x, y, fillValue, boundaryValue) {
+class BoundaryFiller {
+  static StackedBoundaryFill_4(raster, x, y, emptyValue, fillValue, boundaryValue) {
     let pointStack = [];
     let point = {x: x, y: y};
     pointStack.push(point);
 
-    let xleft;
+    let xLeft;
     let xRight;
+    let leftBound;
+    let rightBound;
+    let pixel1;
+    let pixel2;
 
     while(pointStack.length) {
       point = pointStack.pop();
 
-      if(this._raster.getPixel(point.x, point.y) == fillValue) continue;
+      pixel1 = raster.getPixel(point.x, point.y);
+      if(pixel1 != emptyValue) continue;
 
       xLeft = point.x;
-      xRight = point.y;
+      xRight = point.x;
 
-      while(this._raster.getPixel(xLeft-1,y) != boundaryValue) --xLeft;
-      while(this._raster.getPixel(xRight+1,y) != boundaryValue) ++xLeft;
+      leftBound = raster.getPixel(xLeft,point.y);
+      rightBound = raster.getPixel(xRight,point.y);
 
-      this._raster.putPixelRow(xLeft, xRight, y, fillValue);
-      let p1;
-      let p2;
-      for(let nexty = y-1; nexty<y+2; nexty+=2) {
-        p1 = this._raster.getPixel(xLeft,nexty);
-        for(let x = xLeft; x < xRight; ++x) {
-          p2 = this._raster.getPixel(x + 1, nexty);
-          if(p1 != fillValue && p2 == boundaryValue) {
+      while(leftBound == emptyValue){
+        --xLeft;
+        leftBound = raster.getPixel(xLeft,point.y);
+      }
+      ++xLeft;
+
+      while(rightBound == emptyValue) {
+        ++xRight;
+        rightBound = raster.getPixel(xRight,point.y);
+      }
+      --xRight;
+
+      raster.setPixelRow(xLeft, xRight, point.y, fillValue);
+      pixel1;
+      pixel2;
+
+      for(let nexty = point.y-1; nexty<point.y+2; nexty+=2) {
+        pixel1 = raster.getPixel(xLeft,nexty);
+
+        for(let x = xLeft; x <= xRight; ++x) {
+          pixel2 = raster.getPixel(x + 1, nexty);
+
+          if( pixel1 == emptyValue &&
+             (pixel2 == boundaryValue || pixel2 == undefined)) {
             point.x = x;
             point.y = nexty;
             pointStack.push(point);
+            break;
           }
-          p1=p2;
+          pixel1=pixel2;
         }
       }
     }
   }
 }
+
+export { BoundaryFiller };
