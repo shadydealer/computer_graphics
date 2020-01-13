@@ -1,78 +1,25 @@
 import { LineRaster } from "./line_raster.js";
-import { CanvasHandler } from "../../lib/canvas_handler.js";
-import { InputHandler } from "../../lib/input_handler.js";
+import { RasterHandler } from "../../lib/raster_handler.js";
 
-class LineRasterHandler {
+class LineRasterHandler extends RasterHandler {
   constructor(canvasContaierId) {
-    this._inputHandler = new InputHandler(
-      "input-fields-container",
-      Object.values(LineRasterHandler.MAP_INPUT_FIELDS),
+    super(
+      canvasContaierId,
+      new LineRaster(),
+      "add-line",
       LineRasterHandler.LINE_FIELDS
       );
-    this._inputHandler.attachAddShapeOnClick("add-line");
-
-    this._canvasHandler = new CanvasHandler(canvasContaierId);
-
-    this._lineRaster;
   }
 
   attachBresenhamRasterisationMethod(triggerElementId) {
-    this.attachRasterisationMethod(triggerElementId, new LineRaster().bresenhamLine);
-  }
-
-  attachRasterisationMethod(triggerElementId, rasterisationMethod) {
-    document
-    .getElementById(triggerElementId)
-    .addEventListener(
-      "click",
-      event => {
-        event.preventDefault();
-
-        const inputData = this._inputHandler.getInputData();
-
-        const inputFields = LineRasterHandler.MAP_INPUT_FIELDS;
-
-        const mapWidth = inputData.mapData[inputFields.pixelMapWidth];
-        const mapHeight = inputData.mapData[inputFields.pixelMapHeight];
-        const pixelSize = inputData.mapData[inputFields.pixelSize];
-
-        this._canvasHandler.initCanvas(
-          mapWidth*pixelSize,
-          mapHeight*pixelSize
-          );
-
-        this._lineRaster = new LineRaster(
-          mapWidth,
-          mapHeight
-          );
-
-        inputData.shapeData.forEach(line => {
-          rasterisationMethod.call(
-            this._lineRaster,
-            line.x1,
-            line.y1,
-            line.x2,
-            line.y2,
-            line.thickness
-            );
-        });
-
-        const rasterMap = this._lineRaster.getMap();
-
-        this._canvasHandler.fillCanvasWithRaster(
-          rasterMap,
-          pixelSize,
-          {
-            0: "blue",
-            1: "orange",
-            2: "yellow"
-          }
-          );
+    this.attachRasterisationMethod(
+      triggerElementId,
+      this.getRaster().bresenhamLine,
+      {
+        0: "black",
+        1: "white",
+        2: "orange"
       });
-  }
-
-  getLineRaster() {
-    return this._lineRaster;
   }
 }
 
@@ -83,11 +30,5 @@ LineRasterHandler.LINE_FIELDS = [
 "y2",
 "thickness"
 ];
-
-LineRasterHandler.MAP_INPUT_FIELDS = {
-  pixelSize: "pixel-size",
-  pixelMapWidth: "pixel-map-width",
-  pixelMapHeight: "pixel-map-height",
-}
 
 export { LineRasterHandler };
