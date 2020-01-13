@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="module" src="rasterise_line.js"></script>
+  <script type="module" src="rasterise_lines.js"></script>
 </head>
 <body>
-  <form method="post" action="">
+  <div id="input-fields-container">
     <div style="float:left;">
-      Pixel Size:</div>
-    <div style="text-align:center; float:left;">
-      <input type="number" id="pixelSize" name="pixelSize" min="1" value="1">
-    </div>
-    <div style="float:left;" >
-      X1:
-    </div>
-    <div style="float:left;">
-      <input type="number" id="x1" name="x1" min="0" value="0">
+      <div>
+        Pixel Size:
+      </div>
+      <div>
+        <input type="number" id="pixel-size" name="pixel-size" min="1" value="1">
+      </div>
     </div>
     <div style="float:left;">
-      Y1:
-    </div>
-    <div style="float:left;">
-      <input type="number" id="y1" name="y1" min="0" value="0">
-    </div>
-    <div style="float:left;">
-      X2:
-    </div>
-    <div style="float:left;">
-      <input type="number" id="x2" name="x2" min="0" value="0">
-    </div>
-    <div style="float:left;">
-      Y2:
-    </div>
-    <div style="float:left;">
-      <input type="number" id="y2" name="y2" min="0" value="0">
+      <div>
+        Pixel Map Width:
+      </div>
+      <div style="float:left;">
+        <input type="number" id="pixel-map-width" name="pixel-map-width" min="1" value="512">
+      </div>
     </div>
     <div>
-      <input type="submit" id="rasterise" value="Rasterise">
+      <div>
+        Pixel Map Height:
+      </div>
+      <div>
+        <input type="number" id="pixel-map-height" name="pixel-map-height" min="1" value="512">
+      </div>
     </div>
-  </form>
+  </div>
+  <div>
+    <input type="submit" id="add-line" value="Add Line">
+  </div>
+  <div>
+    <input type="submit" id="rasterise" value="Rasterise">
+  </div>
+  <div id="canvas-container">
+  </div>
 </body>
 </html>

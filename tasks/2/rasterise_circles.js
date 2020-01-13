@@ -1,4 +1,4 @@
-import { CircleRasterCanvasHandler } from "./circle_raster_canvas_handler.js";
+import { CircleRasterHandler } from "./circle_raster_handler.js";
 
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
@@ -6,20 +6,16 @@ document.onreadystatechange = () => {
     const canvasContainerId = "canvas-container";
     const circleFieldsContainerId = "circle-fields-container";
 
-    const circleRasterCanvasHandler = new CircleRasterCanvasHandler(
-      canvasContainerId,
-      circleFieldsContainerId
+    const circleRasterHandler = new CircleRasterHandler(
+      canvasContainerId
       );
 
-    circleRasterCanvasHandler.attachAddCircleEventListener(
-      "addCircle"
+    circleRasterHandler.attachMichenerRasterisationTrigger(
+      "michener-rasterisation"
       );
-    circleRasterCanvasHandler.attachMichenerRasterisationTrigger(
-      "michenerRasterisation"
-      );
-    circleRasterCanvasHandler.attachSecondOrderDiffRasterisationTrigger(
-      "secondOrderDiff"
-      );
+    circleRasterHandler.attachSecondOrderDiffRasterisationTrigger(
+      "second-order-rasterisation"
+      )
   }
 };
 
