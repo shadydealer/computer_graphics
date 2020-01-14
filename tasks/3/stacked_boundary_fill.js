@@ -39,26 +39,24 @@ document.onreadystatechange = () => {
         filling: 2,
       };
 
+      const canvasHandler = circleRasterHandler.getCanvasHandler();
+
       BoundaryFiller.StackedBoundaryFill_4(
+        canvasHandler,
         circleRaster,
-        pixel.x,
-        pixel.y,
+        [
+        {
+          x: pixel.x,
+          y: pixel.y
+        }
+        ],
         rasterValues.empty,
         rasterValues.filling,
         rasterValues.boundary
         );
-
-      circleRasterHandler.getCanvasHandler().fillCanvasWithRaster(
-        circleRaster,
-        pixelSize,
-        {
-          0: "black",
-          1: "white",
-          2: "orange"
-        }
-        );
     });
   }
 };
+
 
 
